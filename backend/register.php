@@ -4,7 +4,7 @@ $_SESSION['id'] = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['id'] = 'some_user_id'; 
-    header("Location: ../index.php");
+    header("Location: ../list.php");
     exit();
 }
 ?>
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1>Регистрация</h1>
         </div>
 
-        <form action="register.php" method="post">
+        <form action="registration.php" method="post">
 
             <div class="input-container">
                 <input type="text" id="loginInput" name="login" placeholder="&nbsp;">
@@ -34,17 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div> 
 
             <div class="input-container">
-                <input type="text" id="lastNameInput" name="lastName" placeholder="&nbsp;">
+                <input type="text" id="lastNameInput" name="lastname" placeholder="&nbsp;">
                 <label for="lastNameInput">Фамилия</label>
             </div>
 
             <div class="input-container">
-                <input type="text" id="firstNameInput" name="firstName" placeholder="&nbsp;">
+                <input type="text" id="firstNameInput" name="firstname" placeholder="&nbsp;">
                 <label for="firstNameInput">Имя</label>
             </div>   
 
             <div class="input-container">
-                <input type="text" id="middleNameInput" name="middleName" placeholder="&nbsp;">
+                <input type="text" id="middleNameInput" name="middlename" placeholder="&nbsp;">
                 <label for="middleNameInput">Отчество</label>
             </div>    
 
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
 
-        <a class="link" href="#">
+        <a class="link" href="login.php">
             <p>
                 Вход
             </p>
