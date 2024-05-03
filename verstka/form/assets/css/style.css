@@ -172,3 +172,38 @@ body {
 .edit_svg {
     margin-top: 5px;
 }
+.upload-input {
+    display: none;
+}
+
+.upload-label {
+    display: inline-block;
+    background-color: #a9a9a9;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #727272;
+}
+
+.upload-button {
+    display: block;
+    margin-top: 10px;
+    background-color: #a9a9a9;
+    color: #fff;
+    width: 160px;
+    height: 37px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #727272;
+}
