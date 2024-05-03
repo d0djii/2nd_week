@@ -25,25 +25,6 @@ DROP DATABASE IF EXISTS wordphp;
 CREATE DATABASE wordphp;
 USE wordphp;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `role`
---
-
-CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
-  `name` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Дамп данных таблицы `role`
---
-
-INSERT INTO `role` (`id`, `name`) VALUES
-(0, 'ADMIN'),
-(1, 'UGU'),
-(2, 'OPOP');
 
 -- --------------------------------------------------------
 
@@ -58,7 +39,7 @@ CREATE TABLE `users` (
   `firstname` varchar(15) NOT NULL,
   `middlename` varchar(15) NOT NULL,
   `lastname` varchar(15) NOT NULL,
-  `role_id` int(11) DEFAULT NULL
+  `role` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -69,17 +50,11 @@ INSERT INTO `users` (`id`, `login`, `password`, `firstname`, `middlename`, `last
 (1, 'new', 'Govno228', 'чича', 'чича', 'чича', NULL),
 (2, 'new1', 'test', 'чича', 'чича', 'чича', NULL),
 (3, 'new3', 'Govnoed', 'Чича', 'Чича', 'Чича', NULL),
-(4, 'admin', 'admin', '', '', '', 0);
+(4, 'admin', 'admin', '', '', '', 'ADMIN');
 
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `users`
