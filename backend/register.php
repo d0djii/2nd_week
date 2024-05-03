@@ -15,19 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $namePattern = '/^[А-Яа-яЁё]+$/u';
         
         if (preg_match($loginPattern, $login) && preg_match($namePattern, $lastname) && preg_match($namePattern, $firstname) && preg_match($namePattern, $middlename)) {
-            // Проверка существования логина в базе данных
-            $servername = "localhost";
-            $username = "username";
-            $password = "password";
-            $dbname = "myDB"; // Название вашей базы данных
             
-            // Создание подключения к базе данных
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            
-            // Проверка соединения
-            if ($conn->connect_error) {
-                die("Ошибка подключения: " . $conn->connect_error);
-            }
+            include('connection.php');
             
             // Подготовка SQL запроса
             $sql = "SELECT * FROM users WHERE login='$login'";
@@ -39,8 +28,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<script>alert('Ошибка: Логин уже занят');</script>";
             } else {
                 // Логин свободен, можно регистрировать пользователя
-                $_SESSION['id'] = 'some_user_id'; 
-                header("Location: ../list.php");
+                $stmt = $conn->prepare("INSERT INTO users (login, lastname, firstname, middlename, password) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $login, $lastname, $firstname, $middlename, $password);
+                $stmt->execute();
+
+                // Получаем идентификатор только что зарегистрированного пользователя
+                $newUserId = $conn->insert_id;
+
+                // Устанавливаем идентификатор в $_SESSION['id']
+                $_SESSION['id'] = $newUserId; 
+
+                // Перенаправляем пользователя на страницу list.php
+                header("Location: ./login.php");
                 exit();
             }
             $conn->close();
@@ -73,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1>Регистрация</h1>
         </div>
 
-        <form action="registration.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
             <div class="input-container">
                 <input type="text" id="loginInput" name="login" placeholder="&nbsp;" pattern="[a-zA-Z0-9]+" title="Логин должен состоять только из латинских букв и цифр" required>

@@ -1,15 +1,17 @@
 <?php
 session_start();
+$_SESSION['id'] = '';
+
 
 $errorMsg = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $connectMySQL = new mysqli('localhost', 'root', '', 'wordphp');
+    include('connection.php');
 
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    $query = $connectMySQL->prepare("SELECT * FROM users WHERE login=? AND password=?");
+    $query = $conn->prepare("SELECT * FROM users WHERE login=? AND password=?");
     $query->bind_param("ss", $login, $password);
     $query->execute();
 
@@ -17,9 +19,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         // Успешная авторизация
-        $_SESSION['login'] = $login;
-        header("Location: ../list.php");
-        exit();
+        $row = $result->fetch_assoc();
+        $_SESSION['id'] = $row["id"];
+        $_SESSION['role'] = $row["role"];
+        if($_SESSION['role'] == 'UGU') {
+          header('Location: ./ugu.php');
+          exit(); 
+        }
+        else if ($_SESSION['role'] == 'OPOP') {
+          header('Location: ./opop.php');
+          exit(); 
+        }
+        else if ($_SESSION['role'] == 'ADMIN') {
+          header('Location: ./admin.php');
+          exit(); 
+        }
+        else {
+          header('Location: ./login.php');
+          exit(); 
+        }
+        
     } else {
         $errorMsg = "Неверный логин или пароль";
     }
