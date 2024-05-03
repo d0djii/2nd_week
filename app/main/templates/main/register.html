@@ -17,19 +17,36 @@
             <h1>Регистрация</h1>
         </div>
 
-        <div class="input-container">
-            <input type="name" id="nameInput" placeholder="&nbsp;">
-            <label for="nameInput">Логин</label>
-        </div>    
+        <form action="register.php" method="post">
+            <div class="input-container">
+                <input type="text" id="firstNameInput" name="firstName" placeholder="&nbsp;">
+                <label for="firstNameInput">Имя</label>
+            </div>   
 
-        <div class="input-container">
-            <input type="password" id="nameInput" placeholder="&nbsp;">
-            <label for="nameInput">Пароль</label>
-        </div>
+            <div class="input-container">
+                <input type="text" id="lastNameInput" name="lastName" placeholder="&nbsp;">
+                <label for="lastNameInput">Фамилия</label>
+            </div>
 
-        <div class="form_button">
-            <button>Зарегистрироваться</button>
-        </div>
+            <div class="input-container">
+                <input type="text" id="middleNameInput" name="middleName" placeholder="&nbsp;">
+                <label for="middleNameInput">Отчество</label>
+            </div>    
+
+            <div class="input-container">
+                <input type="text" id="loginInput" name="login" placeholder="&nbsp;">
+                <label for="loginInput">Логин</label>
+            </div>    
+
+            <div class="input-container">
+                <input type="password" id="passwordInput" name="password" placeholder="&nbsp;">
+                <label for="passwordInput">Пароль</label>
+            </div>
+
+            <div class="form_button">
+                <button type="submit">Зарегистрироваться</button>
+            </div>
+        </form>
 
         <a class="link" href="#">
             <p>
