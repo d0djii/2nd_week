@@ -10,8 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstname = $_POST['firstname'];
         $middlename = $_POST['middlename'];
         $password = $_POST['password'];
-
-        // Проверка на соответствие регулярным выражениям
+        
         $loginPattern = '/^[a-zA-Z0-9]+$/';
         $namePattern = '/^[А-Яа-яЁё]+$/u';
         
