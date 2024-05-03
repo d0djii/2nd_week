@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$errorMsg = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $connectMySQL = new mysqli('localhost', 'root', '', 'wordphp');
 
@@ -12,8 +14,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query->execute();
 
     $result = $query->get_result();
+
+    if ($result->num_rows > 0) {
+        // Успешная авторизация
+        $_SESSION['login'] = $login;
+        header("Location: ../list.php");
+        exit();
+    } else {
+        $errorMsg = "Неверный логин или пароль";
+    }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,19 +45,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1>Авторизация</h1>
         </div>
 
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
         <div class="input-container">
-            <input type="name" id="nameInput" placeholder="&nbsp;">
-            <label for="nameInput">Логин</label>
+            <input type="text" id="loginInput" name="login" placeholder="&nbsp;" required>
+            <label for="loginInput">Логин</label>
         </div>    
 
         <div class="input-container">
-            <input type="password" id="nameInput" placeholder="&nbsp;">
-            <label for="nameInput">Пароль</label>
-        </div>
+            <input type="password" id="passwordInput" name="password" placeholder="&nbsp;" required>
+            <label for="passwordInput">Пароль</label>
+        </div>  
+
+        <div style="color: red; margin-bottom: 10px;"><?php echo $errorMsg; ?></div>
 
         <div class="form_button">
-            <button>Войти</button>
+            <button type="submit">Войти</button>
         </div>
+
+    </form>
+
 
         <a class="link" href="register.php">
             <p>
