@@ -1,8 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
@@ -11,7 +13,7 @@
 
     <div class="container">
         <div class="img">
-            <img src="assets/img/user.png" alt="">
+            <img src="{% static "assets/img/user.png" %}" alt="">
             <h1>Регистрация</h1>
         </div>
 
@@ -29,7 +31,7 @@
             <button>Зарегистрироваться</button>
         </div>
 
-        <a class="link" href="index.html">
+        <a class="link" href="#">
             <p>
                 Вход
             </p>
