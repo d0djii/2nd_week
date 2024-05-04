@@ -23,12 +23,7 @@ if(isset($_SESSION['id'])) {
         $role = "nobody";
     }
 
-    $users_query = $conn->query("SELECT id FROM users WHERE role != 'ADMIN'");
-    $users = $users_query->fetch_all(MYSQLI_ASSOC);
-
-    $stmt->close();
-    $conn->close();
-
+    // Перенаправляем пользователя в зависимости от его роли
     if($role == 'UGU') {
       header('Location: ./ugu.php');
       exit(); 
@@ -42,8 +37,6 @@ if(isset($_SESSION['id'])) {
       exit(); 
     }
 }
-
-
 
 ?>
 
@@ -61,10 +54,29 @@ if(isset($_SESSION['id'])) {
     <div class="container">
         <div class="img">
             <img src="assets/img/user.png" width="225px" alt="">
-            <?php foreach ($users as $user): ?>
-              <?php echo $user['id']; ?>
-              <div class=""></div> 
-            <?php endforeach; ?>
+            <!-- Отладочная информация -->
+            <?php 
+            // Подключаемся к базе данных
+            include('connection.php');
+            
+            // Запрос на выборку пользователей без роли ADMIN
+            $sql = "SELECT id, middlename, firstname, lastname FROM users WHERE role != 'ADMIN'";
+            $result = $conn->query($sql);
+
+            if ($result) {
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<div class='row'>";
+                        echo "<p>" . $row['lastname'] . "</p>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "Список пользователей пуст";
+                }
+            } else {
+                echo "Ошибка запроса: " . $conn->error;
+            }
+            ?>
         </div>
         
         <div class="form_button_1">
